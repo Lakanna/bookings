@@ -9,15 +9,16 @@ import { ctrlWrapper } from '../services/ctrlWrapper.js';
 // import { validateBody } from '../middlewares/validateBody.js';
 
 import { authenticate } from '../middlewares/authenticate.js';
+import { isValidId } from '../middlewares/isValidId.js';
 
 router.get('/', ctrlWrapper(users.getAllUsersController));
 
 router.use(authenticate);
 
-router.get('/:id', ctrlWrapper(users.getUserByIdController));
+router.get('/:id', isValidId, ctrlWrapper(users.getUserByIdController));
 
-router.put('/:id', ctrlWrapper(users.updateUserController));
+router.put('/:id', isValidId, ctrlWrapper(users.updateUserController));
 
-router.delete('/:id', ctrlWrapper(users.deleteUserController));
+router.delete('/:id', isValidId, ctrlWrapper(users.deleteUserController));
 
 export default router;

@@ -67,6 +67,20 @@ export const getClientsBookings = async (req, res) => {
   res.status(200).json({ status: 200, data: bookings });
 };
 
+export const getBookingByIdController = async (req, res) => {
+  const clientId = req.user._id;
+  const _id = req.params.bookingId;
+
+  const booking = await getBookingById({ clientId, _id });
+  if (!booking) {
+    return res
+      .status(404)
+      .json({ status: 404, message: 'Booking not found or access denied' });
+  }
+
+  res.status(200).json({ status: 200, data: booking });
+};
+
 export const updateBookingByClient = async (req, res) => {
   const { bookingId } = req.params;
   const { startAt, endAt, notes } = req.body;

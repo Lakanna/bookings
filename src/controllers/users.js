@@ -17,7 +17,7 @@ export const getAllUsersController = async (req, res) => {
 };
 
 export const getUserByIdController = async (req, res) => {
-  const _id = req.user._id;
+  const _id = req.params.id;
 
   const user = await getUserById(_id);
 
@@ -27,7 +27,7 @@ export const getUserByIdController = async (req, res) => {
 };
 
 export const updateUserController = async (req, res) => {
-  const _id = req.user._id;
+  const _id = req.params.id;
   const payload = req.body;
 
   try {
@@ -44,7 +44,7 @@ export const updateUserController = async (req, res) => {
 };
 
 export const deleteUserController = async (req, res) => {
-  const _id = req.user._id;
+  const _id = req.params.id;
 
   await deleteUser(_id);
 
