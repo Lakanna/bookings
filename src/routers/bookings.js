@@ -41,7 +41,7 @@ bookingsRouter.patch(
 bookingsRouter.delete(
   '/:bookingId',
   isValidId,
-  validateBody(updateBookingSchema),
+
   ctrlWrapper(deleteBookingController),
 );
 

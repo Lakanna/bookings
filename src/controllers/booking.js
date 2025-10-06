@@ -132,9 +132,10 @@ export const deleteBookingController = async (req, res) => {
       .status(400)
       .json({ status: 404, message: 'Booking not found or access denied' });
 
-  await deleteBooking({ clientId: booking.clientId, _id: booking._id });
-
-  res
-    .status(204)
-    .json({ status: 204, message: 'The booking successfully deleted' });
+  const deleted = await deleteBooking({
+    clientId: booking.clientId,
+    _id: booking._id,
+  });
+  console.log(deleted, 'deleted ');
+  res.status(200).json({ status: 200, data: deleted });
 };

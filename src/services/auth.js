@@ -38,7 +38,13 @@ export const register = async (payload) => {
     password: hashPassword,
   });
 
-  return newUser;
+  const newSession = createSession();
+  const savedSession = await SessionCollection.create({
+    userId: newUser._id,
+    ...newSession,
+  });
+
+  return { session: savedSession, newUser };
 };
 
 export const login = async ({ email, password }) => {
@@ -55,11 +61,11 @@ export const login = async ({ email, password }) => {
   await SessionCollection.findOneAndDelete({ userId: user._id });
 
   const newSession = createSession();
-
-  return SessionCollection.create({
+  const savedSession = await SessionCollection.create({
     userId: user._id,
     ...newSession,
   });
+  return { session: savedSession, user };
 };
 
 export const refreshUserSession = async ({ sessionId, refreshToken }) => {

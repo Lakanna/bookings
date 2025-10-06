@@ -16,10 +16,13 @@ export const registerController = async (req, res) => {
   const payload = req.body;
 
   const user = await register(payload);
+  setupSession(res, user.session);
 
-  res
-    .status(201)
-    .json({ status: 201, message: 'User successfully registred', data: user });
+  res.status(201).json({
+    status: 201,
+    message: 'User successfully registred',
+    data: { accessToken: user.session.accessToken, user: user.newUser },
+  });
 };
 
 /**
@@ -28,14 +31,14 @@ export const registerController = async (req, res) => {
   |============================
 */
 export const loginUserController = async (req, res) => {
-  const session = await login(req.body);
+  const resp = await login(req.body);
 
-  setupSession(res, session);
+  setupSession(res, resp.session);
 
   res.status(200).json({
     status: 200,
     message: 'Successfully logged in an user!',
-    data: { accessToken: session.accessToken },
+    data: { accessToken: resp.session.accessToken, user: resp.user },
   });
 };
 
