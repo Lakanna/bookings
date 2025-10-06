@@ -1,6 +1,6 @@
 import { UsersCollection } from '../db/models/user.js';
 
-export const getAllUsers = async ({ role }) => {
+export const getAllUsers = async (role) => {
   const filter = {};
   if (role) filter.role = role;
   const users = await UsersCollection.find(filter).sort({ createdAt: -1 });

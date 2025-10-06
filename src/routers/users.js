@@ -15,9 +15,11 @@ router.get('/', ctrlWrapper(users.getAllUsersController));
 
 router.use(authenticate);
 
+router.get('/current', ctrlWrapper(users.getCurrentUserController));
+
 router.get('/:id', isValidId, ctrlWrapper(users.getUserByIdController));
 
-router.put('/:id', isValidId, ctrlWrapper(users.updateUserController));
+router.patch('/update', ctrlWrapper(users.updateUserController));
 
 router.delete('/:id', isValidId, ctrlWrapper(users.deleteUserController));
 

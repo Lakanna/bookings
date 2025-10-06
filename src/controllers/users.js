@@ -6,7 +6,7 @@ import {
 } from '../services/users.js';
 
 export const getAllUsersController = async (req, res) => {
-  const role = req.body || 'business';
+  const role = 'business';
   const usersList = await getAllUsers(role);
 
   res.status(200).json({
@@ -26,12 +26,22 @@ export const getUserByIdController = async (req, res) => {
     .json({ status: 200, message: 'User successfully found', data: user });
 };
 
+export const getCurrentUserController = async (req, res) => {
+  const _id = req.user._id;
+
+  const user = await getUserById(_id);
+
+  res
+    .status(200)
+    .json({ status: 200, message: 'User successfully found', data: user });
+};
+
 export const updateUserController = async (req, res) => {
-  const _id = req.params.id;
+  const _id = req.user._id;
   const payload = req.body;
 
   try {
-    const updatedUser = await updateUser(_id, payload);
+    const updatedUser = await updateUser({ _id, payload });
 
     res.status(200).json({
       status: 200,

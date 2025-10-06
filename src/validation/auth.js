@@ -8,7 +8,7 @@ export const authRegisterSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(8).max(64).required(),
   role: Joi.string().valid('client', 'business').required(),
-  phone: Joi.string(),
+  phone: Joi.string().allow(''),
 
   description: Joi.string().allow(''),
   schedule: Joi.array().items(Joi.string()).default([]),
