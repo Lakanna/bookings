@@ -20,7 +20,7 @@ export const setupServer = () => {
       credentials: true,
       origin: [
         // env('APP_DOMAIN'),
-        'https://bookings-app-frontend.vercel.app/',
+        'https://bookings-app-frontend.vercel.app',
         'http://localhost:5173',
       ],
     }),
